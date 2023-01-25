@@ -1,11 +1,10 @@
+// 클래스 추출하기, 전화번호에 대한 내용은 따로 클래스를 추출해서 만들어줌.
 class Person {
   #name;
-  #officeAreaCode;
-  #officeNumber;
+  #telephoneNumber
   constructor(name, areaCode, number) {
     this.#name = name;
-    this.#officeAreaCode = areaCode;
-    this.#officeNumber = number;
+    this.#telephoneNumber = new TelephoneNumber(areaCode, number);
   }
 
   get name() {
@@ -17,7 +16,7 @@ class Person {
   }
 
   get telephoneNumber() {
-    return `(${this.officeAreaCode}) ${this.officeNumber}`;
+    return this.#telephoneNumber
   }
 
   get officeAreaCode() {
@@ -35,6 +34,16 @@ class Person {
   set officeNumber(arg) {
     this.#officeNumber = arg;
   }
+}
+class TelephoneNumber{
+  #areaCode;
+  #number;
+
+  constructor(areaCode, number){
+    this.#areaCode = areaCode;
+    this.#number = number;
+  }
+  // 전화번호 관련 함수 추가
 }
 
 const person = new Person('엘리', '010', '12345678');
