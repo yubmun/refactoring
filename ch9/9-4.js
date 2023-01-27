@@ -1,3 +1,4 @@
+// 참조를 값으로 바꾸기 ,, 외부에서 변경하지 못하게
 class Person {
   #name;
   #telephoneNumber;
