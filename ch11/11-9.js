@@ -8,7 +8,7 @@ class Scorer {
     this.medicalExam = medicalExam;
     this.scoringGuide = scoringGuide;
   }
-
+  // 명령을 수행하는 명령객체
   execute() {
     let result = 0;
     let healthLevel = 0;
