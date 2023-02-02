@@ -13,6 +13,7 @@ class Concert {
   #book(customer, isPremium){} // 클래스 내부에서는 써도 되지만 외부에서 사용되는 API라면 쪼개자
 }
 
-// 예제 3 , 매개변수는 3개 이상 가지지 않는 것이 좋다. 
+// 예제 3 , 매개변수는 3개 이상 가지지 않는 것이 좋다.
 function switchOn();
 function switchOff()
+
