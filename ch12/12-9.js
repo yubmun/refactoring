@@ -1,3 +1,2 @@
 class Employee {}
-
-class Salesperson extends Employee {}
+// 필요하지 않다면 클래스는 하나로만, 미래지향적으로 서브클래스를 만들기 보다는 필요할 때 파생시키는게 효율적이다
