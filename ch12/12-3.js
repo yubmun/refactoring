@@ -1,23 +1,25 @@
-class Party {}
+class Party {
+  #name;
+  constructor(name){
+    // 이름에 뭐가들어와야 되는지 조건을 걸어야 한다면 부모클래스에서 조건식을 작성
+    this.#name = name;
+  }
+}
 
 class Employee extends Party {
-  #name;
   #id;
   #monthlyCost;
   constructor(name, id, monthlyCost) {
-    super();
-    this.#name = name;
+    super(name);
     this.#id = id;
     this.#monthlyCost = monthlyCost;
   }
 }
 
 class Department extends Party {
-  #name;
   #staff;
   constructor(name, staff) {
-    super();
-    this.#name = name;
+    super(name);
     this.#staff = staff;
   }
 }
