@@ -1,60 +1,21 @@
+import { createStatement } from "./create_statement";
+
 export function statement(invoice, plays) {
-  return renderPlainText(invoice, plays);
+  const statement = createStatement(invoice, plays);
+  return renderPlainText(statement);
 }
 
-function renderPlainText(invoice, plays){
-  let result = `청구 내역 (고객명: ${invoice.customer})\n`;
+function renderPlainText(statement){
+  let result = `청구 내역 (고객명: ${statement.customer})\n`;
 
-  for (let perf of invoice.performances) {
+  for (let perf of statement.performances) {
     // 청구 내역을 출력한다.
-    result += `  ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${perf.audience}석)\n`;
+    result += `  ${perf.play.name}: ${usd(amountFor(perf) / 100)} (${perf.audience}석)\n`;
   }
-  result += `총액: ${usd(totalAmount() / 100)}\n`;
-  result += `적립 포인트: ${totalCredits()}점\n`;
+  result += `총액: ${usd(statement.totalAmount / 100)}\n`;
+  result += `적립 포인트: ${statement.totalCredits}점\n`;
   return result;
 
-  function playFor(perf) {
-    return plays[perf.playID];
-  }
-
-  function creditsFor(perf) {
-    let result = 0;
-    result += Math.max(perf.audience - 30, 0);
-    if ("comedy" === playFor(perf).type) {
-      result += Math.floor(perf.audience / 5);
-    }
-    return result;
-  }
-
-  function amountFor(perf) {
-    let thisAmount = 0;
-    switch (playFor(perf).type) {
-      case "tragedy": // 비극
-        thisAmount = 40000;
-        if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 30);
-        }
-        break;
-      case "comedy": // 희극
-        thisAmount = 30000;
-        if (perf.audience > 20) {
-          thisAmount += 10000 + 500 * (perf.audience - 20);
-        }
-        thisAmount += 300 * perf.audience;
-        break;
-      default:
-        throw new Error(`알 수 없는 장르: ${playFor(perf).type}`);
-    }
-    return thisAmount;
-  }
-
-  function totalAmount() {
-    return invoice.performances.reduce((sum, p) => (sum += amountFor(p)), 0);
-  }
-
-  function totalCredits() {
-    return invoice.performances.reduce((sum, p) => (sum += creditsFor(p)), 0);
-  }
 }
 
 function usd(number) {
